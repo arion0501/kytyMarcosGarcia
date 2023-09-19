@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1027904728731",
+    "project_id": "kyty-marcos",
+    "storage_bucket": "kyty-marcos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1027904728731:android:99b9852d08e1a84431203e",
+        "android_client_info": {
+          "package_name": "es.marcos.kyty"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVEjZ_f7OTqohlQ_jdLfDjG38GOYLGcEE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1027904728731:android:69ada6986402397531203e",
+        "android_client_info": {
+          "package_name": "org.eurekamps.kyty"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVEjZ_f7OTqohlQ_jdLfDjG38GOYLGcEE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
