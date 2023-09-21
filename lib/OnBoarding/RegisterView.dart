@@ -12,8 +12,8 @@ class RegisterView extends StatelessWidget{
     Future<void> onClickAceptar() async {
       try {
         final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: emailAddress,
-          password: password,
+          email: "marcosgarciadam@gmai.com",
+          password: "holahola2",
         );
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
@@ -60,9 +60,7 @@ class RegisterView extends StatelessWidget{
 
       Row(mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextButton(onPressed: () {
-            print("ACEPTADO");
-          }, child: Text("Aceptar"),),
+          TextButton(onPressed: onClickAceptar, child: Text("Aceptar"),),
           TextButton(onPressed: () {
             Navigator.of(context).popAndPushNamed('/loginview');
           }, child: Text("Cancelar"),)
