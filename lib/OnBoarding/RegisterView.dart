@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -5,13 +6,28 @@ class RegisterView extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     //Text texto=Text("Hola Mundo desde Kyty");
     //return texto;
 
+    Future<void> onClickAceptar() async {
+      try {
+        final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailAddress,
+          password: password,
+        );
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'weak-password') {
+          print('The password provided is too weak.');
+        } else if (e.code == 'email-already-in-use') {
+          print('The account already exists for that email.');
+        }
+      } catch (e) {
+        print(e);
+      }
+    }
 
     Column columna = Column(children: [
-      Text("Bienvenido a Kyty Register",style: TextStyle(fontSize: 25)),
+      Text("Bienvenido a Kyty Register", style: TextStyle(fontSize: 25)),
 
       Padding(padding: EdgeInsets.symmetric(horizontal: 60, vertical: 16),
         child: TextField(
@@ -44,11 +60,13 @@ class RegisterView extends StatelessWidget{
 
       Row(mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextButton(onPressed: () { print("ACEPTADO");}, child: Text("Aceptar"),),
-          TextButton( onPressed: () { Navigator.of(context).popAndPushNamed('/loginview'); }, child: Text("Cancelar"),)
+          TextButton(onPressed: () {
+            print("ACEPTADO");
+          }, child: Text("Aceptar"),),
+          TextButton(onPressed: () {
+            Navigator.of(context).popAndPushNamed('/loginview');
+          }, child: Text("Cancelar"),)
         ],)
-
-
     ],);
 
     AppBar appBar = AppBar(
@@ -58,11 +76,10 @@ class RegisterView extends StatelessWidget{
       backgroundColor: Colors.greenAccent,
     );
 
-    Scaffold scaf=Scaffold(body: columna,
+    Scaffold scaf = Scaffold(body: columna,
       //backgroundColor: Colors.deepOrange,
       appBar: appBar,);
 
     return scaf;
   }
-
 }
