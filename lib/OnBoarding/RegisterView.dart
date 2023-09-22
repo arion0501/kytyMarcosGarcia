@@ -1,36 +1,56 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class RegisterView extends StatelessWidget{
+class RegisterView extends StatelessWidget {
+
+  late BuildContext _context;
+
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController repasswordController = TextEditingController();
+
+  SnackBar snackbar = SnackBar(content: Text("¡Vaya! Las contraseñas no son iguales...")
+  );
+
+  void onClickCancelar() {
+    Navigator.of(_context).pushNamed("/loginview");
+  }
+
+  void onClickAceptar() async {
+    // print("username -> " + usernameController.text);
+
+    if (passwordController.text == repasswordController.text)
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: usernameController.text,
+        password: passwordController.text,
+      );
+
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
+    }
+    else {
+    ScaffoldMessenger.of(_context).showSnackBar(snackbar);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    //Text texto=Text("Hola Mundo desde Kyty");
-    //return texto;
-
-    Future<void> onClickAceptar() async {
-      try {
-        final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: "marcosgarciadam@gmai.com",
-          password: "holahola2",
-        );
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'weak-password') {
-          print('The password provided is too weak.');
-        } else if (e.code == 'email-already-in-use') {
-          print('The account already exists for that email.');
-        }
-      } catch (e) {
-        print(e);
-      }
-    }
+    _context = context;
 
     Column columna = Column(children: [
+      Padding(padding: EdgeInsets.symmetric(vertical: 10)),
       Text("Bienvenido a Kyty Register", style: TextStyle(fontSize: 25)),
 
-      Padding(padding: EdgeInsets.symmetric(horizontal: 60, vertical: 16),
+      Padding(padding: EdgeInsets.symmetric(horizontal: 500, vertical: 14),
         child: TextField(
+          controller: usernameController,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             hintText: 'Escribe tu usuario',
@@ -38,8 +58,9 @@ class RegisterView extends StatelessWidget{
         ),
       ),
 
-      Padding(padding: EdgeInsets.symmetric(horizontal: 60, vertical: 16),
+      Padding(padding: EdgeInsets.symmetric(horizontal: 500, vertical: 14),
         child: TextFormField(
+          controller: passwordController,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             hintText: 'Escribe tu password',
@@ -48,8 +69,9 @@ class RegisterView extends StatelessWidget{
         ),
       ),
 
-      Padding(padding: EdgeInsets.symmetric(horizontal: 60, vertical: 16),
+      Padding(padding: EdgeInsets.symmetric(horizontal: 500, vertical: 14),
         child: TextFormField(
+          controller: repasswordController,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             hintText: 'Repite tu password',
@@ -70,12 +92,12 @@ class RegisterView extends StatelessWidget{
     AppBar appBar = AppBar(
       title: const Text('Register'),
       centerTitle: true,
-      shadowColor: Colors.pink,
-      backgroundColor: Colors.greenAccent,
+      backgroundColor: Colors.black,
+      foregroundColor: Colors.cyan,
     );
 
     Scaffold scaf = Scaffold(body: columna,
-      //backgroundColor: Colors.deepOrange,
+      backgroundColor: Colors.cyan,
       appBar: appBar,);
 
     return scaf;
