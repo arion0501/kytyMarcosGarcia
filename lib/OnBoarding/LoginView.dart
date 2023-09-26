@@ -39,32 +39,33 @@ class LoginView extends StatelessWidget{
       Padding(padding: EdgeInsets.symmetric(vertical: 10)),
       Text("Bienvenido a Kyty Login", style: TextStyle(fontSize: 25)),
 
-      Padding(padding: EdgeInsets.symmetric(horizontal: 500, vertical: 14),
-        child: TextField(
+      Padding(padding: EdgeInsets.symmetric(horizontal: Checkbox.width, vertical: 14),
+        child: Flexible(child: TextField(
           controller: tecUsername,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             hintText: 'Escribe tu usuario',
           ),
         ),
+        ),
       ),
 
-      Padding(padding: EdgeInsets.symmetric(horizontal: 500, vertical: 14),
-        child: TextFormField(
+      Padding(padding: EdgeInsets.symmetric(horizontal: Checkbox.width, vertical: 14),
+        child: Flexible(child: TextField(
           controller: tecPassword,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            hintText: 'Escribe tu password',
+            hintText: 'Escribe tu contraseña',
           ),
-          obscureText: true,
+        ),
         ),
       ),
 
       Row(mainAxisAlignment: MainAxisAlignment.center,
         children: [
-        TextButton(onPressed: onClickAceptarLogin, child: Text("Aceptar"),),
-        TextButton(onPressed: onClickRegistrar, child: Text("Registrar"),)
-      ],)
+          TextButton(onPressed: onClickAceptarLogin, child: Text("Aceptar"),),
+          TextButton(onPressed: onClickRegistrar, child: Text("Registrar"),)
+        ],)
     ],);
 
     AppBar appBar = AppBar(
