@@ -54,6 +54,8 @@ class RegisterView extends StatelessWidget {
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             hintText: 'Escribe tu usuario',
+            fillColor: Colors.white,
+            filled: true
           ),
         ),
       ),
@@ -64,6 +66,8 @@ class RegisterView extends StatelessWidget {
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             hintText: 'Escribe tu password',
+            fillColor: Colors.white,
+            filled: true
           ),
           obscureText: true,
         ),

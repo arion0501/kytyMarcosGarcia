@@ -43,20 +43,26 @@ class LoginView extends StatelessWidget{
         child: Flexible(child: TextField(
           controller: tecUsername,
           decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Escribe tu usuario',
+              border: OutlineInputBorder(),
+              hintText: 'Escribe tu usuario',
+              fillColor: Colors.white,
+              filled: true
           ),
         ),
         ),
       ),
 
       Padding(padding: EdgeInsets.symmetric(horizontal: Checkbox.width, vertical: 14),
-        child: Flexible(child: TextField(
+        child: Flexible(child: SizedBox(width: 500, child: TextField(
           controller: tecPassword,
+          obscureText: true,
           decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Escribe tu contraseña',
+              border: OutlineInputBorder(),
+              hintText: 'Escribe tu contraseña',
+              fillColor: Colors.white,
+              filled: true
           ),
+        ),
         ),
         ),
       ),
