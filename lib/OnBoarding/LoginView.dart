@@ -41,7 +41,7 @@ class LoginView extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    _context=context;
+    _context = context;
 
     Column columna = Column(children: [
       Padding(padding: EdgeInsets.symmetric(vertical: 10)),
@@ -92,7 +92,7 @@ class LoginView extends StatelessWidget{
 
     Scaffold scaf = Scaffold(body: columna,
       backgroundColor: Colors.cyan,
-      appBar: appBar,);
+      appBar: appBar);
 
     return scaf;
   }
