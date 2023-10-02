@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginView extends StatelessWidget{
 
   late BuildContext _context;
+  FirebaseFirestore db = FirebaseFirestore.instance;
 
   TextEditingController tecUsername = TextEditingController();
   TextEditingController tecPassword = TextEditingController();
@@ -19,8 +21,14 @@ class LoginView extends StatelessWidget{
         password: tecPassword.text,
       );
 
-      Navigator.of(_context).popAndPushNamed("/homeview");
-      print("Ya estás manin");
+      String uidUser = FirebaseAuth.instance.currentUser!.uid;
+      DocumentSnapshot<Map<String, dynamic>> datos = await db.collection('Users').doc(uidUser).get();
+
+      if(datos.exists){
+        print("nombre login user: " + datos.data()?['nombre']);
+        Navigator.of(_context).popAndPushNamed("/homeview");
+        print("Ya estás manin");
+      }
 
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
