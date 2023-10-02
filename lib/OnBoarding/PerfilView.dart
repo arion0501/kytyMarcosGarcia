@@ -17,11 +17,16 @@ class PerfilView extends StatelessWidget {
       "edad": int.parse(tecEdad.text),
     };
 
+    // Crear documento con ID auto generado
+    // db.collection('Users').add(user);
+
     // UID del usuario que está logeado
-    String uidUsers = FirebaseAuth.instance.currentUser!.uid;
+    String uidUser = FirebaseAuth.instance.currentUser!.uid;
 
     // Crear documento con un ID nuestro
-    db.collection("/Users").doc(uidUsers).set(user);
+    db.collection("Users").doc(uidUser).set(user);
+
+    Navigator.of(_context).popAndPushNamed('/homeview');
   }
 
   void onClickCancelar()  {

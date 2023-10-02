@@ -1,16 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatelessWidget{
 
   late BuildContext _context;
 
+  void onClickVolver() {
+    FirebaseAuth.instance.signOut();
+    Navigator.of(_context).popAndPushNamed('/loginview');
+}
+
   @override
   Widget build(BuildContext context) {
     _context = context;
-
-  void volverApp(){
-    Navigator.of(_context).popAndPushNamed("/loginview");
-  }
 
   Column columna = Column(children: [
     Padding(padding: EdgeInsets.symmetric(vertical: 10)),
@@ -19,7 +21,7 @@ class HomeView extends StatelessWidget{
     Padding(padding: EdgeInsets.symmetric(vertical: 7)),
     Row(mainAxisAlignment: MainAxisAlignment.center,
     children: [
-    TextButton(onPressed: volverApp, child: Text("Volver"),
+    TextButton(onPressed: onClickVolver, child: Text("Volver"),
     ),
     ],)
   ]);

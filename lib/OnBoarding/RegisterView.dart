@@ -26,6 +26,8 @@ class RegisterView extends StatelessWidget {
         password: passwordController.text,
       );
 
+      Navigator.of(_context).popAndPushNamed('/perfilview');
+
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -79,6 +81,8 @@ class RegisterView extends StatelessWidget {
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             hintText: 'Repite tu password',
+              fillColor: Colors.white,
+              filled: true,
           ),
           obscureText: true,
         ),
