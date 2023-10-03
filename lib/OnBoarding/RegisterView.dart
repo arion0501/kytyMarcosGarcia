@@ -13,7 +13,7 @@ class RegisterView extends StatelessWidget {
   );
 
   void onClickCancelar() {
-    Navigator.of(_context).pushNamed("/loginview");
+    Navigator.of(_context).popAndPushNamed("/loginview");
   }
 
   void onClickAceptar() async {
@@ -55,7 +55,7 @@ class RegisterView extends StatelessWidget {
           controller: usernameController,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            hintText: 'Escribe tu usuario',
+            labelText: 'Escribe tu usuario',
             fillColor: Colors.white,
             filled: true
           ),
@@ -67,7 +67,7 @@ class RegisterView extends StatelessWidget {
           controller: passwordController,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            hintText: 'Escribe tu password',
+            labelText: 'Escribe tu password',
             fillColor: Colors.white,
             filled: true
           ),
@@ -80,7 +80,7 @@ class RegisterView extends StatelessWidget {
           controller: repasswordController,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            hintText: 'Repite tu password',
+            labelText: 'Repite tu password',
               fillColor: Colors.white,
               filled: true,
           ),
@@ -90,10 +90,8 @@ class RegisterView extends StatelessWidget {
 
       Row(mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextButton(onPressed: onClickAceptar, child: Text("Aceptar"),),
-          TextButton(onPressed: () {
-            Navigator.of(context).popAndPushNamed('/loginview');
-          }, child: Text("Cancelar"),)
+          TextButton(onPressed: onClickAceptar, style: TextButton.styleFrom(foregroundColor: Colors.black) ,child: Text("Aceptar"),),
+          TextButton(onPressed: onClickCancelar, style: TextButton.styleFrom(foregroundColor: Colors.black), child: Text("Cancelar"),)
         ],)
     ],);
 

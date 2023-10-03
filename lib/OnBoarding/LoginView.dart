@@ -52,7 +52,7 @@ class LoginView extends StatelessWidget{
           controller: tecUsername,
           decoration: InputDecoration(
               border: OutlineInputBorder(),
-              hintText: 'Escribe tu usuario',
+              labelText: 'Escribe tu usuario',
               fillColor: Colors.white,
               filled: true
           ),
@@ -67,7 +67,7 @@ class LoginView extends StatelessWidget{
           obscureText: true,
           decoration: InputDecoration(
               border: OutlineInputBorder(),
-              hintText: 'Escribe tu contraseña',
+              labelText: 'Escribe tu contraseña',
               fillColor: Colors.white,
               filled: true
           ),
@@ -78,8 +78,8 @@ class LoginView extends StatelessWidget{
 
       Row(mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextButton(onPressed: onClickAceptarLogin, child: Text("Aceptar"),),
-          TextButton(onPressed: onClickRegistrar, child: Text("Registrar"),)
+          TextButton(onPressed: onClickAceptarLogin, style: TextButton.styleFrom(foregroundColor: Colors.black), child: Text("Aceptar"),),
+          TextButton(onPressed: onClickRegistrar, style: TextButton.styleFrom(foregroundColor: Colors.black), child: Text("Registrar"),)
         ],)
     ],);
 
