@@ -15,7 +15,7 @@ class PerfilView extends StatelessWidget {
   void onClickAceptar() async {
 
     FbUsuario usuario = new FbUsuario(nombre: tecNombre.text,
-        edad: int.parse(tecEdad.toString()), altura: 0, colorPelo: '');
+        edad: int.parse(tecEdad.text), altura: 0, colorPelo: '');
 
     // UID del usuario que está logeado
     String uidUser = FirebaseAuth.instance.currentUser!.uid;

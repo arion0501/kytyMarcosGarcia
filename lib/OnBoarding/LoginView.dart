@@ -30,14 +30,15 @@ class LoginView extends StatelessWidget{
           toFirestore: (FbUsuario usuario, _) => usuario.toFirestore());
 
       DocumentSnapshot<FbUsuario> docSnap = await reference.get();
-      FbUsuario usuario = docSnap.data()!;
-
-      if(usuario != null) {
-        print("nombre login user: " + usuario.nombre);
-        print("edad login user: " + usuario.edad.toString());
-        print("altura login user: " + usuario.altura.toString());
-        print("color pelo login user: " + usuario.colorPelo);
-        Navigator.of(_context).popAndPushNamed("/homeview");
+      if(docSnap.exists) {
+        FbUsuario usuario = docSnap.data()!;
+        if (usuario != null) {
+          print("nombre login user: " + usuario.nombre);
+          print("edad login user: " + usuario.edad.toString());
+          print("altura login user: " + usuario.altura.toString());
+          print("color pelo login user: " + usuario.colorPelo);
+          Navigator.of(_context).popAndPushNamed("/homeview");
+        }
       }
       else{
         Navigator.of(_context).popAndPushNamed("/perfilview");
@@ -103,8 +104,8 @@ class LoginView extends StatelessWidget{
     );
 
     Scaffold scaf = Scaffold(body: columna,
-      backgroundColor: Colors.cyan,
-      appBar: appBar);
+        backgroundColor: Colors.cyan,
+        appBar: appBar);
 
     return scaf;
   }
