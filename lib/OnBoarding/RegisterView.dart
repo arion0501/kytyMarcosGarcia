@@ -17,28 +17,26 @@ class RegisterView extends StatelessWidget {
   }
 
   void onClickAceptar() async {
-    // print("username -> " + usernameController.text);
-
     if (passwordController.text == repasswordController.text)
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: usernameController.text,
-        password: passwordController.text,
-      );
+      try {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: usernameController.text,
+          password: passwordController.text,
+        );
 
-      Navigator.of(_context).popAndPushNamed('/perfilview');
+        Navigator.of(_context).popAndPushNamed('/perfilview');
 
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'weak-password') {
+          print('The password provided is too weak.');
+        } else if (e.code == 'email-already-in-use') {
+          print('The account already exists for that email.');
+        }
+      } catch (e) {
+        print(e);
       }
-    } catch (e) {
-      print(e);
-    }
     else {
-    ScaffoldMessenger.of(_context).showSnackBar(snackbar);
+      ScaffoldMessenger.of(_context).showSnackBar(snackbar);
     }
   }
 
@@ -54,10 +52,10 @@ class RegisterView extends StatelessWidget {
         child: TextField(
           controller: usernameController,
           decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Escribe tu usuario',
-            fillColor: Colors.white,
-            filled: true
+              border: OutlineInputBorder(),
+              labelText: 'Escribe tu usuario',
+              fillColor: Colors.white,
+              filled: true
           ),
         ),
       ),
@@ -66,10 +64,10 @@ class RegisterView extends StatelessWidget {
         child: TextFormField(
           controller: passwordController,
           decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Escribe tu password',
-            fillColor: Colors.white,
-            filled: true
+              border: OutlineInputBorder(),
+              labelText: 'Escribe tu password',
+              fillColor: Colors.white,
+              filled: true
           ),
           obscureText: true,
         ),
@@ -81,8 +79,8 @@ class RegisterView extends StatelessWidget {
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             labelText: 'Repite tu password',
-              fillColor: Colors.white,
-              filled: true,
+            fillColor: Colors.white,
+            filled: true,
           ),
           obscureText: true,
         ),

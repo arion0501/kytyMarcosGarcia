@@ -12,7 +12,7 @@ class PerfilView extends StatelessWidget {
 
   FirebaseFirestore db = FirebaseFirestore.instance;
 
-  void onClickAceptar() {
+  void onClickAceptar() async {
 
     FbUsuario usuario = new FbUsuario(nombre: tecNombre.text,
         edad: int.parse(tecEdad.toString()), altura: 0, colorPelo: '');
@@ -21,7 +21,7 @@ class PerfilView extends StatelessWidget {
     String uidUser = FirebaseAuth.instance.currentUser!.uid;
 
     // Crear documento con un ID nuestro
-    db.collection("Users").doc(uidUser).set(usuario.toFirestore());
+    await db.collection("Users").doc(uidUser).set(usuario.toFirestore());
 
     Navigator.of(_context).popAndPushNamed('/homeview');
   }
@@ -90,9 +90,7 @@ class PerfilView extends StatelessWidget {
               TextButton(onPressed: onClickAceptar, child: Text("Aceptar"),),
               TextButton(onPressed: onClickCancelar, child: Text("Cancelar"),)
             ],)
-
         ], // children
-
       ),
     );
   }
