@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../FirestoreObjects/FbUsuario.dart';
 
 class LoginView extends StatelessWidget{
 
@@ -22,12 +23,21 @@ class LoginView extends StatelessWidget{
       );
 
       String uidUser = FirebaseAuth.instance.currentUser!.uid;
-      DocumentSnapshot<Map<String, dynamic>> datos = await db.collection('Users').doc(uidUser).get();
 
-      if(datos.exists){
-        print("nombre login user: " + datos.data()?['nombre']);
+      DocumentReference<FbUsuario> reference = db.collection('Users')
+          .doc(uidUser)
+          .withConverter(fromFirestore: FbUsuario.fromFirestore,
+          toFirestore: (FbUsuario usuario, _) => usuario.toFirestore());
+
+      DocumentSnapshot<FbUsuario> docSnap = await reference.get();
+      FbUsuario usuario = docSnap.data()!;
+
+      if(usuario != null) {
+        print("nombre login user: " + usuario.nombre);
+        print("edad login user: " + usuario.edad.toString());
+        print("altura login user: " + usuario.altura.toString());
+        print("color pelo login user: " + usuario.colorPelo);
         Navigator.of(_context).popAndPushNamed("/homeview");
-        print("Ya estás manin");
       }
 
     } on FirebaseAuthException catch (e) {
