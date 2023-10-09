@@ -64,17 +64,17 @@ class _HomeViewState extends State<HomeView> {
   Widget? creadorDeItemLista(BuildContext context, int index) {
     return GridCellView(
         sText: 'hola',
-        iColorCode: 5,
+        iColorCode: 300,
         dFontSize: 20,
         bPrimary: false,
         dPadding: 8,
     );
   }
-  /*PostCellView(sText: posts[index].titulo,
-        iColorCode: 0,
-        dFontSize: 20
-    );*/
-
+     /* PostCellView(sText: posts[index].titulo,
+          iColorCode: 300,
+          dFontSize: 20
+      );
+  }*/
 
   Widget creadorDeSeparadorLista(BuildContext context, int index) {
     // return Divider(thickness: 5);

@@ -19,7 +19,7 @@ class GridCellView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
+    return GridView.z(
       primary: bPrimary,
       padding: EdgeInsets.all(dPadding),
       crossAxisSpacing: 10,
