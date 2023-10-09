@@ -21,9 +21,9 @@ class FbUsuario {
     final data = snapshot.data();
     return FbUsuario(
       nombre: data?['nombre'],
-      edad: data?['edad'],
-      altura: data?['altura'],
-      colorPelo: data?['colorPelo'],
+      edad: data?['edad'] != null ? data!['edad'] : 0,
+      altura: data?['altura'] != null ? data!['altura'] : 0,
+      colorPelo: data?['colorPelo'] != null ? data!['colorPelo'] : ""
     );
   }
 

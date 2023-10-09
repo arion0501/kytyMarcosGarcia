@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:kyty/Custom/ContainerView.dart';
+import 'package:kyty/Custom/GridCellView.dart';
 import 'package:kyty/Custom/PostCellView.dart';
 import 'package:kyty/FirestoreObjects/FbPost.dart';
 
@@ -40,22 +42,39 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Kyty"),),
-      body: ListView.separated(
+        appBar: AppBar(title: Text("Kyty"),),
+        body: Center(
+          child: GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
+            itemCount: posts.length,
+            itemBuilder: creadorDeItemLista,
+          ),
+        )
+    );
+  }
+
+  /* ListView.separated(
         padding: EdgeInsets.all(8),
         itemCount: posts.length,
         itemBuilder: creadorDeItemLista,
         separatorBuilder: creadorDeSeparadorLista,
       ),
-    );
-  }
+    );*/
 
   Widget? creadorDeItemLista(BuildContext context, int index) {
-    return PostCellView(sText: posts[index].titulo,
-        iColorCode: 0,
-        dFontSize: 20
+    return GridCellView(
+        sText: 'hola',
+        iColorCode: 5,
+        dFontSize: 20,
+        bPrimary: false,
+        dPadding: 8,
     );
   }
+  /*PostCellView(sText: posts[index].titulo,
+        iColorCode: 0,
+        dFontSize: 20
+    );*/
+
 
   Widget creadorDeSeparadorLista(BuildContext context, int index) {
     // return Divider(thickness: 5);
