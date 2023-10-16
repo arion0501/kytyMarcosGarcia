@@ -13,18 +13,17 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
 
   FirebaseFirestore db = FirebaseFirestore.instance;
-
   final List<FbPost> posts = [];
   bool bIsList = false;
 
   void onBottonMenuPressed(int indice) {
-    print("--> HOME!"+indice.toString());
+    print("--> HOME!" + indice.toString());
     setState(() {
       if(indice == 0){
-        bIsList=true;
+        bIsList = true;
       }
-      else if(indice==1){
-        bIsList=false;
+      else if(indice == 1){
+        bIsList = false;
       }
     });
   }
