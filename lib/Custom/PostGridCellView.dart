@@ -1,30 +1,36 @@
 import 'package:flutter/material.dart';
+import '../FirestoreObjects/FbPost.dart';
 
 class PostGridCellView extends StatelessWidget{
 
-  final String sText;
-  final int iColorCode;
-  final double dFontSize;
-  final double dHeight;
+  final List<FbPost> post;
 
   const PostGridCellView({super.key,
-    required this.sText,
-    required this.iColorCode,
-    required this.dFontSize,
-    required this.dHeight
+    required this.post
   });
 
   @override
   Widget build(BuildContext context) {
-    return
-      FractionallySizedBox(
-        child: Container(
-            color: Colors.amber[iColorCode],
-            child: Center(
-              child: Text(sText,style: TextStyle(fontSize: dFontSize),
-              ),
-            )
+    return GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 4,
+          mainAxisSpacing: 8,
+          crossAxisSpacing: 8,
         ),
-      );
+        padding: EdgeInsets.all(8),
+        itemCount: post.length,
+        itemBuilder: (context, index) {
+
+          return Container(
+            color: Colors.indigoAccent,
+            child: Center(
+              child: Text(
+                post[index].titulo,
+                style: TextStyle(fontSize: 20, color: Colors.orange),
+              ),
+            ),
+          );
+        }
+    );
   }
 }

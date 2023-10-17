@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:kyty/Custom/DrawerCustom.dart';
 import 'package:kyty/Custom/PostCellView.dart';
 import 'package:kyty/FirestoreObjects/FbPost.dart';
 import '../Custom/BottomMenu.dart';
@@ -47,18 +48,19 @@ class _HomeViewState extends State<HomeView> {
     }
   }
 
-  final List <String> postsOLD = <String>['A', 'B', 'C'];
+  /*final List <String> postsOLD = <String>['A', 'B', 'C'];
   final List <int> colorCode = <int>[600, 500, 100];
-  final List <double> fontSize = <double>[30, 15, 70];
+  final List <double> fontSize = <double>[30, 15, 70];*/
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Kyty"),),
-      body: Center(
-        child: celdasOLista(bIsList),
-      ),
-      bottomNavigationBar: BottomMenu(evento: onBottonMenuPressed),
+        appBar: AppBar(title: Text("Kyty"),),
+        body: Center(
+          child: celdasOLista(bIsList),
+        ),
+        bottomNavigationBar: BottomMenu(evento: onBottonMenuPressed),
+        drawer: DrawerCustom()
       /*
         ListView.separated(
           padding: EdgeInsets.all(8),
@@ -83,10 +85,8 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget? creadorDeItemMatriz(BuildContext context, int index) {
-    return PostGridCellView(sText: posts[index].titulo,
-      dFontSize: 18,
-      iColorCode: 17,
-      dHeight: 150,
+    return PostGridCellView(
+      post: posts,
     );
   }
 
@@ -99,7 +99,7 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  Widget celdasOLista(bool isList) {
+  Widget? celdasOLista(bool isList) {
     if (isList) {
       return ListView.separated(
         padding: EdgeInsets.all(8),
@@ -109,12 +109,12 @@ class _HomeViewState extends State<HomeView> {
       );
     }
     else {
-      return GridView.builder(
+      return creadorDeItemMatriz(context, posts.length);
+      /*GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 5),
           itemCount: posts.length,
-          itemBuilder: creadorDeItemMatriz
-      );
+          itemBuilder: creadorDeItemMatriz*/
     }
   }
 }
