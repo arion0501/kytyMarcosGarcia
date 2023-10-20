@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../Interfaces/BottomMenuEvents.dart';
-
 class BottomMenu extends StatelessWidget{
 
   Function (int indice)? evento;
