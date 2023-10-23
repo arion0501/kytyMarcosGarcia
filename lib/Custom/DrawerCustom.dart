@@ -5,7 +5,8 @@ class DrawerCustom extends StatelessWidget {
 
   Function (int indice)? onItemTap;
 
-  DrawerCustom({Key? key,required this.onItemTap
+  DrawerCustom({Key? key,
+    required this.onItemTap
   }) : super(key: key);
 
   @override
