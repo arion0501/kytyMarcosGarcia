@@ -3,26 +3,37 @@ import 'package:flutter/material.dart';
 class PostCellView extends StatelessWidget{
 
   final String sText;
-  final int iColorCode;
+  final MaterialColor iColorCode;
   final double dFontSize;
+  final int iPosicion;
+  final Function(int indice)? onItemListClickedFun;
 
   const PostCellView ({
     required this.sText,
     required this.iColorCode,
-    required this.dFontSize});
+    required this.dFontSize,
+    required this.iPosicion,
+    required this.onItemListClickedFun
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.amber[iColorCode],
-      child: Row(
-        children: [
-          Image.asset('resources/logo_kyty.png',
-            width: 30,
-            height: 45),
-          Text(sText)
-        ],
-      )
+    return InkWell(
+      child: Container(
+          color: iColorCode,
+          child: Row(
+            children: [
+              Image.asset('resources/logo_kyty.png',
+                  width: 55,
+                  height: 55),
+              Text(sText,style: TextStyle(fontSize: dFontSize)),
+              TextButton(onPressed: null, child: Text(" +",style: TextStyle(fontSize: dFontSize)))
+            ],
+          )
+      ),
+      onTap: () {
+        onItemListClickedFun!(iPosicion);
+      },
     );
   }
 }

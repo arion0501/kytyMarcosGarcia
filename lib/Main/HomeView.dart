@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:kyty/Custom/DrawerCustom.dart';
 import 'package:kyty/Custom/PostCellView.dart';
 import 'package:kyty/FirestoreObjects/FbPost.dart';
+import 'package:kyty/SingleTone/DataHolder.dart';
 import '../Custom/BottomMenu.dart';
 import '../Custom/PostGridCellView.dart';
 import '../OnBoarding/LoginView.dart';
@@ -35,7 +36,7 @@ class _HomeViewState extends State<HomeView> {
   bool bIsList = false;
 
   void onBottonMenuPressed(int indice) {
-    print("--> HOME!" + indice.toString());
+    print("--> HOME " + indice.toString() + "!" );
     setState(() {
       if(indice == 0){
         bIsList = true;
@@ -90,10 +91,17 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
+  void onItemListaClicked(int index) {
+    DataHolder().selectedPost = posts[index];
+    Navigator.of(context).pushNamed('/postview');
+  }
+
   Widget? creadorDeItemLista(BuildContext context, int index) {
     return PostCellView(sText: posts[index].titulo,
-      dFontSize: 60,
-      iColorCode: 0,
+        dFontSize: 30,
+        iColorCode: Colors.pink,
+        iPosicion: index,
+        onItemListClickedFun: onItemListaClicked
     );
   }
 
