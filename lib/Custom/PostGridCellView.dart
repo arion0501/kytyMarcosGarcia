@@ -4,9 +4,12 @@ import '../FirestoreObjects/FbPost.dart';
 class PostGridCellView extends StatelessWidget{
 
   final List<FbPost> post;
+  final Function(int indice)? onItemListClickedFun;
+
 
   const PostGridCellView({super.key,
-    required this.post
+    required this.post,
+    required this.onItemListClickedFun
   });
 
   @override
@@ -21,14 +24,19 @@ class PostGridCellView extends StatelessWidget{
         itemCount: post.length,
         itemBuilder: (context, index) {
 
-          return Container(
-            color: Colors.indigoAccent,
-            child: Center(
-              child: Text(
-                post[index].titulo,
-                style: TextStyle(fontSize: 20, color: Colors.orange),
+          return InkWell(
+            child: Container(
+              color: Colors.indigoAccent,
+              child: Center(
+                child: Text(
+                  post[index].titulo,
+                  style: TextStyle(fontSize: 20, color: Colors.orange),
+                ),
               ),
             ),
+            onTap: () {
+              onItemListClickedFun!(index);
+            },
           );
         }
     );

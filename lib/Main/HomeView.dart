@@ -69,25 +69,19 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Kyty"),),
-        body: Center(
-          child: celdasOLista(bIsList),
-        ),
-        bottomNavigationBar: BottomMenu(evento: onBottonMenuPressed),
-        drawer: DrawerCustom(onItemTap: fHomeViewDrawerOntap)
-      /*
-        ListView.separated(
-          padding: EdgeInsets.all(8),
-          itemCount: posts.length,
-          itemBuilder: creadorDeItemLista,
-          separatorBuilder: creadorDeSeparadorLista,
-        ):
-        GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5),
-            itemCount: posts.length,
-            itemBuilder: creadorDeItemMatriz
-        ),
-      ),*/
+      appBar: AppBar(title: Text("Kyty"),),
+      body: Center(
+        child: celdasOLista(bIsList),
+      ),
+      bottomNavigationBar: BottomMenu(evento: onBottonMenuPressed),
+      drawer: DrawerCustom(onItemTap: fHomeViewDrawerOntap),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed("/postcreateview");
+        },
+        child: Icon(Icons.add),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndDocked,
     );
   }
 
@@ -108,6 +102,7 @@ class _HomeViewState extends State<HomeView> {
   Widget? creadorDeItemMatriz(BuildContext context, int index) {
     return PostGridCellView(
       post: posts,
+      onItemListClickedFun: onItemListaClicked,
     );
   }
 
