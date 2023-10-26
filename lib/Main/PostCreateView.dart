@@ -27,15 +27,11 @@ class PostCreateView extends StatelessWidget {
 
           TextButton(onPressed: () {
             FbPost postNuevo = new FbPost(
-              titulo: tecTitulo.text,
-              cuerpo: tecCuerpo.text,
-            );
-            CollectionReference<FbPost> postsRef = db.collection("Post")
-                .withConverter(
-              fromFirestore: FbPost.fromFirestore,
-              toFirestore: (FbPost post, _) => post.toFirestore(),
-            );
-            postsRef.add(postNuevo);
+                titulo: tecTitulo.text,
+                cuerpo: tecCuerpo.text);
+
+            DataHolder().crearPostEnFB(postNuevo);
+
             Navigator.of(context).popAndPushNamed("/homeview");
             },
               child: Text("Postear")
