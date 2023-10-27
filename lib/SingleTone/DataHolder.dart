@@ -13,7 +13,11 @@ class DataHolder {
   late FbPost selectedPost;
 
   DataHolder._internal() {
+  }
+
+  void initDataHolder() {
     sPostTitle="Titulo de Post";
+    initCachedFbPost();
   }
 
   factory DataHolder(){
@@ -29,16 +33,27 @@ class DataHolder {
     postRef.add(post);
   }
 
-  void initCachedFbPost() async {
+  void saveSelectedPostInCache() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('titulo', selectedPost.titulo);
+    prefs.setString('cuerpo', selectedPost.cuerpo);
+  }
+
+  Future<FbPost> initCachedFbPost() async {
+    if(selectedPost != null) {
+      return selectedPost;
+    }
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    String? fbpost_titulo = prefs.getString('fbpost_titulo');
+    String? fbpost_titulo = prefs.getString('titulo');
     fbpost_titulo ??= "";
 
-    String? fbpost_cuerpo = prefs.getString('fbpost_cuerpo');
-    if(fbpost_cuerpo == null) {
-      fbpost_cuerpo = "";
-    }
+    String? fbpost_cuerpo = prefs.getString('cuerpo');
+    fbpost_cuerpo ??= "";
+
+    print("Shared preferences --> " + fbpost_titulo);
     selectedPost = FbPost(titulo: fbpost_titulo, cuerpo: fbpost_cuerpo);
+
+    return selectedPost;
   }
 }

@@ -1,7 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:kyty/FirestoreObjects/FbPost.dart';
 import 'package:kyty/SingleTone/DataHolder.dart';
 
-class PostView extends StatelessWidget{
+class PostView extends StatefulWidget {
+
+  @override
+  State<PostView> createState() => _PostViewState();
+}
+class _PostViewState extends State<PostView> {
+  late FbPost selectedPost;
+
+  @override
+  void initState() async{
+    super.initState();
+    setState(() async {
+      selectedPost = await DataHolder().initCachedFbPost();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

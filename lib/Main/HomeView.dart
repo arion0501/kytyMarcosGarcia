@@ -87,6 +87,7 @@ class _HomeViewState extends State<HomeView> {
 
   void onItemListaClicked(int index) {
     DataHolder().selectedPost = posts[index];
+    DataHolder().saveSelectedPostInCache();
     Navigator.of(context).pushNamed('/postview');
   }
 
