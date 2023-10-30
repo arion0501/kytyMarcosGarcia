@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kyty/SingleTone/FirebaseAdmin.dart';
+import 'package:kyty/SingleTone/GeolocAdmin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../FirestoreObjects/FbPost.dart';
@@ -9,6 +10,7 @@ class DataHolder {
   static final DataHolder _dataHolder = new DataHolder._internal();
   FirebaseFirestore db = FirebaseFirestore.instance;
   FirebaseAdmin fbAdmin = FirebaseAdmin();
+  GeolocAdmin geolocAdmin = GeolocAdmin();
 
   String sNombre = "Kyty DataHolder";
   late String sPostTitle;

@@ -33,7 +33,7 @@ class DrawerCustom extends StatelessWidget {
           ),
           ListTile(
             title: const Text('2'),
-            leading: Icon(Icons.accessible_forward_rounded, color: Colors.red,),
+            leading: Icon(Icons.accessible_forward_rounded, color: Colors.red),
             onTap: () {
               onItemTap!(1);
             },
