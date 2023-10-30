@@ -127,11 +127,6 @@ class _HomeViewState extends State<HomeView> {
     }
     else {
       return creadorDeItemMatriz(context, posts.length);
-      /*GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 5),
-          itemCount: posts.length,
-          itemBuilder: creadorDeItemMatriz*/
     }
   }
 }
