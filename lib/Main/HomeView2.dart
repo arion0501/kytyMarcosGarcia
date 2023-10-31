@@ -12,10 +12,10 @@ import '../OnBoarding/LoginView.dart';
 
 class HomeView2 extends StatefulWidget {
   @override
-  State<HomeView2> createState() => _HomeViewState();
+  State<HomeView2> createState() => _HomeViewState2();
 }
 
-class _HomeViewState extends State<HomeView2> {
+class _HomeViewState2 extends State<HomeView2> {
 
   void fHomeViewDrawerOntap(int indice) {
     if(indice==0){
