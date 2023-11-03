@@ -8,7 +8,7 @@ class PostView extends StatefulWidget {
   State<PostView> createState() => _PostViewState();
 }
 class _PostViewState extends State<PostView> {
-  FbPost _datosPost = FbPost(titulo: "titulo", cuerpo: "cuerpo");
+  FbPost _datosPost = FbPost(titulo: "titulo", cuerpo: "cuerpo", imagen: "imagen");
 
   @override
   void initState() {

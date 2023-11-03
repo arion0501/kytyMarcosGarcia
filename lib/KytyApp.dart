@@ -34,13 +34,13 @@ class KytyApp extends StatelessWidget{
         routes: {
           '/loginview':(context) => PhoneLoginView(),
           '/registerview':(context) => RegisterView(),
-          '/homeview2':(context) => HomeView2(),
+          '/homeview':(context) => HomeView2(),
           '/splashview':(context) => SplashView(),
           '/perfilview':(context) => PerfilView(),
           '/postview':(context) => PostView(),
           '/postcreateview':(context) => PostCreateView(),
         },
-        initialRoute: '/homeview2',
+        initialRoute: '/homeview',
       );
     return materialApp;
   }

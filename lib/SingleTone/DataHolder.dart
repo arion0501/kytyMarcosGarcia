@@ -43,6 +43,7 @@ class DataHolder {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('titulo', selectedPost!.titulo);
       prefs.setString('cuerpo', selectedPost!.cuerpo);
+      prefs.setString('imagen', selectedPost!.imagen);
     }
   }
 
@@ -57,8 +58,12 @@ class DataHolder {
     String? fbpost_cuerpo = prefs.getString('cuerpo');
     fbpost_cuerpo ??= "";
 
+    String? fbpost_imagen = prefs.getString('imagen');
+    fbpost_imagen ??= "";
+
     print("Shared preferences --> " + fbpost_titulo);
-    selectedPost = FbPost(titulo: fbpost_titulo, cuerpo: fbpost_cuerpo);
+    selectedPost = FbPost(titulo: fbpost_titulo, cuerpo: fbpost_cuerpo,
+    imagen: fbpost_imagen);
 
     return selectedPost;
   }
