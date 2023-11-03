@@ -18,11 +18,11 @@ class _PhoneLoginViewState extends State<PhoneLoginView> {
     String sTelefono = tecPhone.text;
 
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: '+44 7123 123 456',
+      phoneNumber: sTelefono,
       verificationCompleted: verificacionCompletada,
       verificationFailed: verificacionFallida,
       codeSent: codigoEnviado,
-      codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+      codeAutoRetrievalTimeout: tiempoDeEsperaAcabado,
     );
   }
 
@@ -35,11 +35,14 @@ class _PhoneLoginViewState extends State<PhoneLoginView> {
 
     // Sign the user in (or link) with the credential
     await FirebaseAuth.instance.signInWithCredential(credential);
+
+    Navigator.of(context).popAndPushNamed('/homeview');
   }
 
   void verificacionCompletada(PhoneAuthCredential credencial) async{
     await FirebaseAuth.instance.signInWithCredential(credencial);
-    Navigator.of(context).popAndPushNamed('/homeview2');
+
+    Navigator.of(context).popAndPushNamed('/homeview');
   }
 
   void verificacionFallida(FirebaseAuthException excepcion) {
@@ -55,7 +58,7 @@ class _PhoneLoginViewState extends State<PhoneLoginView> {
     });
   }
 
-  void codeAutoRetrievalTimeout(String tiempoCodigo) {
+  void tiempoDeEsperaAcabado(String tiempoCodigo) {
 
   }
 
