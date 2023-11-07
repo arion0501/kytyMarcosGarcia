@@ -23,15 +23,18 @@ class _PostCreateViewState extends State<PostCreateView> {
   File _imagePreview = File("");
 
   void subirImagen() async {
+    // Create a storage reference from our app
     final storageRef = FirebaseStorage.instance.ref();
 
-    final rutaAFicheroEnNube = storageRef.child("mountains.jpg");
+    // Create a reference to "mountains.jpg"
+    final rutaAFicheroEnNube = storageRef.child("imgs/mountains.jpg");
 
     try {
       await rutaAFicheroEnNube.putFile(_imagePreview);
-    } on FirebaseException catch (o) {
-
+    } on FirebaseException catch (e) {
+      // ...
     }
+    print("Imagen subida con éxito");
   }
 
   void onGalleryClicked() async {
@@ -56,29 +59,30 @@ class _PostCreateViewState extends State<PostCreateView> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(title: Text(DataHolder().sNombre)),
-      body: Column(
-        children: [
-          KTTextField(tecController: tecTitulo,
-              labelText:'Escribe un titulo'),
-
-          KTTextField(tecController: tecCuerpo,
-              labelText:'Escribe un cuerpo'),
-
-          if(_imagePreview.path != "")
-          Image.file(_imagePreview, width: 250, height: 250),
-
-          Row(
+        appBar: AppBar(title: Text(DataHolder().sNombre)),
+        body: SingleChildScrollView(
+          child: Column(
             children: [
-              TextButton(onPressed: onGalleryClicked, child: Text("Galería")),
-              TextButton(onPressed: onCameraClicked, child: Text("Cámara"))
-            ],
-          ),
+              KTTextField(tecController: tecTitulo,
+                  labelText:'Escribe un titulo'),
 
-          TextButton(onPressed: () {
-            subirImagen();
+              KTTextField(tecController: tecCuerpo,
+                  labelText:'Escribe un cuerpo'),
 
-            /*FbPost postNuevo = new FbPost(
+              if(_imagePreview.path != "")
+                Image.file(_imagePreview, width: 250, height: 250),
+
+              Row(
+                children: [
+                  TextButton(onPressed: onGalleryClicked, child: Text("Galería")),
+                  TextButton(onPressed: onCameraClicked, child: Text("Cámara"))
+                ],
+              ),
+
+              TextButton(onPressed: () {
+                subirImagen();
+
+                /*FbPost postNuevo = new FbPost(
                 titulo: tecTitulo.text,
                 cuerpo: tecCuerpo.text,
                 imagen:  tecImagen.text);
@@ -86,11 +90,12 @@ class _PostCreateViewState extends State<PostCreateView> {
             DataHolder().crearPostEnFB(postNuevo);
 
             Navigator.of(context).popAndPushNamed("/homeview");*/
-          },
-              child: Text("Postear")
-          )
-        ],
-      ),
+              },
+                  child: Text("Postear")
+              )
+            ],
+          ),
+        )
     );
   }
 }
