@@ -32,8 +32,8 @@ class _PostCreateViewState extends State<PostCreateView> {
         FirebaseAuth.instance.currentUser!.uid + "/imgs/" +
         DateTime.now().millisecondsSinceEpoch.toString() + ".jpg";
 
-    // Create a reference to "mountains.jpg"
     final rutaAFicheroEnNube = storageRef.child(rutaEnNube);
+
     final metadata = SettableMetadata(contentType: "image/jpeg");
 
     //--INICIO DE SUBIDA DE IMAGEN

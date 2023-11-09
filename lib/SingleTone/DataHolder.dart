@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kyty/SingleTone/FirebaseAdmin.dart';
 import 'package:kyty/SingleTone/GeolocAdmin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../FirestoreObjects/FbPost.dart';
 
 class DataHolder {

@@ -17,7 +17,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
 
   void fHomeViewDrawerOntap(int indice) {
-    if(indice==0){
+    if(indice == 0){
       FirebaseAuth.instance.signOut();
       //Navigator.of(context).pop();
       //Navigator.of(context).popAndPushNamed("/loginview");
