@@ -1,9 +1,11 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../Custom/KTTextField.dart';
+import '../FirestoreObjects/FbPost.dart';
 import '../SingleTone/DataHolder.dart';
 
 class PostCreateView extends StatefulWidget {
@@ -22,19 +24,39 @@ class _PostCreateViewState extends State<PostCreateView> {
   ImagePicker _picker = ImagePicker();
   File _imagePreview = File("");
 
-  void subirImagen() async {
+  void subirPost() async {
     // Create a storage reference from our app
     final storageRef = FirebaseStorage.instance.ref();
 
-    // Create a reference to "mountains.jpg"
-    final rutaAFicheroEnNube = storageRef.child("imgs/mountains.jpg");
+    String rutaEnNube = "posts/" +
+        FirebaseAuth.instance.currentUser!.uid + "/imgs/" +
+        DateTime.now().millisecondsSinceEpoch.toString() + ".jpg";
 
+    // Create a reference to "mountains.jpg"
+    final rutaAFicheroEnNube = storageRef.child(rutaEnNube);
+    final metadata = SettableMetadata(contentType: "image/jpeg");
+
+    //--INICIO DE SUBIDA DE IMAGEN
     try {
-      await rutaAFicheroEnNube.putFile(_imagePreview);
+      await rutaAFicheroEnNube.putFile(_imagePreview, metadata);
     } on FirebaseException catch (e) {
-      // ...
+      print("Error al subir la imagen" + e.toString());
     }
     print("Imagen subida con éxito");
+
+    String imgUrl = await rutaAFicheroEnNube.getDownloadURL();
+    print("URL de descarga: " + imgUrl);
+    //-- FIN DE SUBIDA DE IMAGEN
+
+    //-- INICIO SUBIDA DE POST
+    FbPost postNuevo = new FbPost(
+        titulo: tecTitulo.text,
+        cuerpo: tecCuerpo.text,
+        imagen: imgUrl);
+
+    DataHolder().crearPostEnFB(postNuevo);
+    //-- FIN SUBIDA DE POST
+    Navigator.of(context).popAndPushNamed("/homeview");
   }
 
   void onGalleryClicked() async {
@@ -80,16 +102,7 @@ class _PostCreateViewState extends State<PostCreateView> {
               ),
 
               TextButton(onPressed: () {
-                subirImagen();
-
-                /*FbPost postNuevo = new FbPost(
-                titulo: tecTitulo.text,
-                cuerpo: tecCuerpo.text,
-                imagen:  tecImagen.text);
-
-            DataHolder().crearPostEnFB(postNuevo);
-
-            Navigator.of(context).popAndPushNamed("/homeview");*/
+                subirPost();
               },
                   child: Text("Postear")
               )
