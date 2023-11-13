@@ -34,7 +34,7 @@ class KytyApp extends StatelessWidget{
         routes: {
           '/loginview':(context) => PhoneLoginView(),
           '/registerview':(context) => RegisterView(),
-          '/homeview':(context) => HomeView2(),
+          '/homeview':(context) => HomeView(),
           '/splashview':(context) => SplashView(),
           '/perfilview':(context) => PerfilView(),
           '/postview':(context) => PostView(),

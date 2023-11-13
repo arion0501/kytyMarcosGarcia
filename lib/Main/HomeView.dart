@@ -33,6 +33,7 @@ class _HomeViewState extends State<HomeView> {
 
   FirebaseFirestore db = FirebaseFirestore.instance;
   final List<FbPost> posts = [];
+  final Map<String, FbPost> mapPosts = Map();
   bool bIsList = false;
 
   void onBottonMenuPressed(int indice) {
@@ -54,22 +55,49 @@ class _HomeViewState extends State<HomeView> {
   }
 
   void descargarPosts() async {
-    CollectionReference<FbPost> collection = db.collection("Post")
+    posts.clear();
+
+    CollectionReference<FbPost> ref = db.collection("Post")
         .withConverter(fromFirestore: FbPost.fromFirestore,
         toFirestore: (FbPost post, _) => post.toFirestore());
 
-    QuerySnapshot<FbPost> querySnapshot = await collection.get();
-    for (int i = 0; i < querySnapshot.docs.length; i++) {
-      setState(() {
-        posts.add(querySnapshot.docs[i].data());
-      });
+    //QuerySnapshot<FbPost> querySnapshot = await collection.get();
+
+    ref.snapshots().listen(datosDescargados, onError: descargaPostError);
+  }
+
+  void datosDescargados(QuerySnapshot<FbPost> postsDescargados) {
+    for (int i = 0; i < postsDescargados.docChanges.length; i++) {
+      FbPost temp = postsDescargados.docChanges[i].doc.data()!;
+      mapPosts[postsDescargados.docChanges[i].doc.id] = temp;
     }
+    setState(() {
+      posts.clear();
+      posts.addAll(mapPosts.values);
+    });
+    /*posts.clear();
+    for (int i = 0; i < postsDescargados.docs.length; i++) {
+      setState(() {
+        posts.add(postsDescargados.docs[i].data());
+      });
+    }*/
+  }
+
+  void descargaPostError(error) {
+    print("Listen failed: $error");
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Kyty"),),
+      appBar: AppBar(title: Text("Kyty"),
+        /*actions: [
+            IconButton(
+              icon: const Icon(Icons.refresh),
+              tooltip: 'Refrescar Lista',
+              onPressed: descargarPosts,
+            )]*/
+      ),
       body: Center(
         child: celdasOLista(bIsList),
       ),

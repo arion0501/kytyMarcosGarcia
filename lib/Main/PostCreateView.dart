@@ -101,9 +101,7 @@ class _PostCreateViewState extends State<PostCreateView> {
                 ],
               ),
 
-              TextButton(onPressed: () {
-                subirPost();
-              },
+              TextButton(onPressed: subirPost,
                   child: Text("Postear")
               )
             ],
