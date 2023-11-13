@@ -52,6 +52,7 @@ class _HomeViewState2 extends State<HomeView2> {
   void initState() {
     super.initState();
     descargarPosts();
+    loadGeolocator();
   }
 
   void loadGeolocator() async {
