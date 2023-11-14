@@ -121,7 +121,7 @@ class _HomeViewState extends State<HomeView> {
 
   Widget? creadorDeItemLista(BuildContext context, int index) {
     return PostCellView(sText: posts[index].titulo,
-        dFontSize: 30,
+        dFontSize: DataHolder().platformAdmin.getScreenHeight()*0.02,
         iColorCode: Colors.pink,
         iPosicion: index,
         onItemListClickedFun: onItemListaClicked

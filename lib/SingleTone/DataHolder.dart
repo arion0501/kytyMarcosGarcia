@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:kyty/SingleTone/FirebaseAdmin.dart';
 import 'package:kyty/SingleTone/GeolocAdmin.dart';
+import 'package:kyty/SingleTone/PlatformAdmin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../FirestoreObjects/FbPost.dart';
 
@@ -10,6 +12,7 @@ class DataHolder {
   FirebaseFirestore db = FirebaseFirestore.instance;
   FirebaseAdmin fbAdmin = FirebaseAdmin();
   GeolocAdmin geolocAdmin = GeolocAdmin();
+  late PlatformAdmin platformAdmin;
 
   String sNombre = "Kyty DataHolder";
   late String sPostTitle;
@@ -20,8 +23,12 @@ class DataHolder {
   }
 
   void initDataHolder() {
-    /*sPostTitle = "Titulo de Post";
-    initCachedFbPost();*/
+    sPostTitle = "Titulo de Post";
+
+  }
+
+  void initPlatformAdmin(BuildContext context) {
+    platformAdmin = PlatformAdmin(context: context);
   }
 
   factory DataHolder(){

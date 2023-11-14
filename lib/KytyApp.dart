@@ -4,6 +4,7 @@ import 'package:kyty/Main/HomeView.dart';
 import 'package:kyty/Main/HomeView2.dart';
 import 'package:kyty/Main/PostCreateView.dart';
 import 'package:kyty/OnBoarding/PerfilView.dart';
+import 'package:kyty/SingleTone/DataHolder.dart';
 import 'package:kyty/Splash/SplashView.dart';
 import 'Main/PostView.dart';
 import 'OnBoarding/LoginView.dart';
@@ -14,6 +15,7 @@ class KytyApp extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    DataHolder().initPlatformAdmin(context);
     MaterialApp materialApp;
     if (kIsWeb) {
       materialApp = MaterialApp(title: "KyTy Miau!",
@@ -26,7 +28,7 @@ class KytyApp extends StatelessWidget{
           '/postview':(context) => PostView(),
           '/postcreateview':(context) => PostCreateView(),
         },
-        initialRoute: '/loginview',
+        initialRoute: '/splashview',
       );
     }
     else
