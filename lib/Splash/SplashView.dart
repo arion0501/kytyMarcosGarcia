@@ -25,16 +25,8 @@ class _SplashViewState extends State<SplashView> {
     await Future.delayed(Duration(seconds: 3));
 
     if(FirebaseAuth.instance.currentUser != null) {
-      String uidUser = FirebaseAuth.instance.currentUser!.uid;
-      // DocumentSnapshot<Map<String, dynamic>> datos = await db.collection('Users').doc(uidUser).get();
 
-      DocumentReference<FbUsuario> reference = db.collection('Users')
-          .doc(uidUser)
-          .withConverter(fromFirestore: FbUsuario.fromFirestore,
-          toFirestore: (FbUsuario usuario, _) => usuario.toFirestore());
-
-      DocumentSnapshot<FbUsuario> docSnap = await reference.get();
-      FbUsuario usuario = docSnap.data()!;
+      FbUsuario? usuario = await DataHolder().loadFbUsuario();
 
       if(usuario != null) {
         print("nombre login user: " + usuario.nombre);

@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:kyty/FirestoreObjects/FbUsuario.dart';
 import 'package:kyty/SingleTone/FirebaseAdmin.dart';
 import 'package:kyty/SingleTone/GeolocAdmin.dart';
+import 'package:kyty/SingleTone/HttpAdmin.dart';
 import 'package:kyty/SingleTone/PlatformAdmin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../FirestoreObjects/FbPost.dart';
@@ -13,6 +16,8 @@ class DataHolder {
   FirebaseAdmin fbAdmin = FirebaseAdmin();
   GeolocAdmin geolocAdmin = GeolocAdmin();
   late PlatformAdmin platformAdmin;
+  HttpAdmin httpAdmin = HttpAdmin();
+  late FbUsuario usuario;
 
   String sNombre = "Kyty DataHolder";
   late String sPostTitle;
@@ -31,7 +36,7 @@ class DataHolder {
     platformAdmin = PlatformAdmin(context: context);
   }
 
-  factory DataHolder(){
+  factory DataHolder() {
     return _dataHolder;
   }
 
@@ -53,6 +58,21 @@ class DataHolder {
     }
   }
 
+  Future<FbUsuario?> loadFbUsuario() async {
+    String uidUser = FirebaseAuth.instance.currentUser!.uid;
+
+    DocumentReference<FbUsuario> reference = db.collection('Users')
+        .doc(uidUser)
+        .withConverter(fromFirestore: FbUsuario.fromFirestore,
+        toFirestore: (FbUsuario usuario, _) => usuario.toFirestore());
+
+    DocumentSnapshot<FbUsuario> docSnap = await reference.get();
+    usuario = docSnap.data()!;
+
+    return usuario;
+    }
+
+
   Future<FbPost?> initCachedFbPost() async {
     if(selectedPost != null) return selectedPost;
 
@@ -72,5 +92,10 @@ class DataHolder {
     imagen: fbpost_imagen);
 
     return selectedPost;
+  }
+
+  void suscribeACambios (FbUsuario usuario) {
+    geolocAdmin.registrarCambiosLoc();
+    fbAdmin.actualizarPerfilUsuario(usuario);
   }
 }

@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:kyty/SingleTone/DataHolder.dart';
 import '../FirestoreObjects/FbUsuario.dart';
 
-class LoginView extends StatelessWidget{
+class LoginView extends StatelessWidget {
 
   late BuildContext _context;
   FirebaseFirestore db = FirebaseFirestore.instance;
@@ -22,25 +23,16 @@ class LoginView extends StatelessWidget{
         password: tecPassword.text,
       );
 
-      String uidUser = FirebaseAuth.instance.currentUser!.uid;
+      FbUsuario? usuario = await DataHolder().loadFbUsuario();
 
-      DocumentReference<FbUsuario> reference = db.collection('Users')
-          .doc(uidUser)
-          .withConverter(fromFirestore: FbUsuario.fromFirestore,
-          toFirestore: (FbUsuario usuario, _) => usuario.toFirestore());
-
-      DocumentSnapshot<FbUsuario> docSnap = await reference.get();
-      if(docSnap.exists) {
-        FbUsuario usuario = docSnap.data()!;
-        if (usuario != null) {
-          print("nombre login user: " + usuario.nombre);
-          print("edad login user: " + usuario.edad.toString());
-          print("altura login user: " + usuario.altura.toString());
-          print("color pelo login user: " + usuario.colorPelo);
-          Navigator.of(_context).popAndPushNamed("/homeview");
-        }
+      if (usuario != null) {
+        print("nombre login user: " + usuario.nombre);
+        print("edad login user: " + usuario.edad.toString());
+        print("altura login user: " + usuario.altura.toString());
+        print("color pelo login user: " + usuario.colorPelo);
+        Navigator.of(_context).popAndPushNamed("/homeview");
       }
-      else{
+      else {
         Navigator.of(_context).popAndPushNamed("/perfilview");
       }
     } on FirebaseAuthException catch (e) {
