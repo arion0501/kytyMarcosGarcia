@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:kyty/Custom/DrawerCustom.dart';
 import 'package:kyty/Custom/PostCellView.dart';
 import 'package:kyty/FirestoreObjects/FbPost.dart';
@@ -52,6 +53,13 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     super.initState();
     descargarPosts();
+    determinarTempLocal();
+  }
+
+  determinarTempLocal() async {
+    Position position = await DataHolder().geolocAdmin.determinePosition();
+    double valor = await DataHolder().httpAdmin.pedirTemperaturasEn(position.latitude, position.longitude);
+    print('La temperatura en el sitio donde estás es: ${valor}');
   }
 
   void descargarPosts() async {
