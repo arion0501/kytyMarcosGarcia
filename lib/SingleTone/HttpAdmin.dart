@@ -15,13 +15,12 @@ class HttpAdmin {
 
       var response = await http.get(url);
 
-      if (response.statusCode == 220) {
+      if (response.statusCode == 200) {
         var jsonResponse = convert.jsonDecode(response.body) as Map <String, dynamic>;
         //print("Mapa entero: " + jsonResponse.toString());
         var horas = jsonResponse['hourly_units'];
-        print("Unidad horaria: " + horas.toString());
-        print("Horas: " + jsonResponse['hourly'].toString());
-        print("Tiempos: " + jsonResponse['time'].toString());
+        //print("Unidad horaria: " + horas.toString());
+        //print("Horas: " + jsonResponse['hourly'].toString());
         //var itemCount = jsonResponse['totalItems'];
         //print('Number of books about http: $itemCount.');
         DateTime now = DateTime.now();
