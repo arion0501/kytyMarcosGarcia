@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kyty/Custom/KTTextField.dart';
+import 'package:kyty/SingleTone/DataHolder.dart';
+import '../FirestoreObjects/FbUsuario.dart';
 
 class PhoneLoginView extends StatefulWidget {
   @override
@@ -35,14 +37,29 @@ class _PhoneLoginViewState extends State<PhoneLoginView> {
 
     // Sign the user in (or link) with the credential
     await FirebaseAuth.instance.signInWithCredential(credential);
-
-    Navigator.of(context).popAndPushNamed('/homeview');
+    FbUsuario? usuario = await DataHolder().loadFbUsuario();
+    if(usuario != null) {
+      print("nombre login user: " + usuario.nombre);
+      print("edad login user: " + usuario.edad.toString());
+      Navigator.of(context).popAndPushNamed("/homeview");
+    }
+    else{
+      Navigator.of(context).popAndPushNamed('/perfilview');
+    }
   }
 
   void verificacionCompletada(PhoneAuthCredential credencial) async{
     await FirebaseAuth.instance.signInWithCredential(credencial);
+    FbUsuario? usuario = await DataHolder().loadFbUsuario();
 
-    Navigator.of(context).popAndPushNamed('/homeview');
+    if(usuario != null) {
+      print("nombre login user: " + usuario.nombre);
+      print("edad login user: " + usuario.edad.toString());
+      Navigator.of(context).popAndPushNamed("/homeview");
+    }
+    else{
+      Navigator.of(context).popAndPushNamed('/perfilview');
+    }
   }
 
   void verificacionFallida(FirebaseAuthException excepcion) {
