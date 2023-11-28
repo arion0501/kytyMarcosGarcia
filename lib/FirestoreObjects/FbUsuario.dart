@@ -6,7 +6,7 @@ class FbUsuario {
   final int edad;
   final double altura;
   final String colorPelo;
-  final GeoPoint geoloc;
+  GeoPoint geoloc;
 
   FbUsuario ({
     required this.nombre,
