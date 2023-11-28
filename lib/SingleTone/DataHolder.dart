@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:kyty/FirestoreObjects/FbUsuario.dart';
 import 'package:kyty/SingleTone/FirebaseAdmin.dart';
 import 'package:kyty/SingleTone/GeolocAdmin.dart';
@@ -17,7 +18,7 @@ class DataHolder {
   GeolocAdmin geolocAdmin = GeolocAdmin();
   late PlatformAdmin platformAdmin;
   HttpAdmin httpAdmin = HttpAdmin();
-  late FbUsuario usuario;
+  FbUsuario? usuario;
 
   String sNombre = "Kyty DataHolder";
   late String sPostTitle;
@@ -67,11 +68,10 @@ class DataHolder {
         toFirestore: (FbUsuario usuario, _) => usuario.toFirestore());
 
     DocumentSnapshot<FbUsuario> docSnap = await reference.get();
-    usuario = docSnap.data()!;
+    usuario = docSnap.data();
 
     return usuario;
-    }
-
+  }
 
   Future<FbPost?> initCachedFbPost() async {
     if(selectedPost != null) return selectedPost;
@@ -87,15 +87,18 @@ class DataHolder {
     String? fbpost_imagen = prefs.getString('imagen');
     fbpost_imagen ??= "";
 
-    print("Shared preferences --> " + fbpost_titulo);
     selectedPost = FbPost(titulo: fbpost_titulo, cuerpo: fbpost_cuerpo,
     imagen: fbpost_imagen);
 
     return selectedPost;
   }
 
-  void suscribeACambios (FbUsuario usuario) {
-    geolocAdmin.registrarCambiosLoc();
-    fbAdmin.actualizarPerfilUsuario(usuario);
+  void suscribeACambiosGPSUsuario () {
+    geolocAdmin.registrarCambiosLoc(posicionDelMovilCambio);
+  }
+
+  void posicionDelMovilCambio(Position? position) {
+    usuario!.geoloc = GeoPoint(position!.latitude, position!.longitude);
+    fbAdmin.actualizarPerfilUsuario(usuario!);
   }
 }
