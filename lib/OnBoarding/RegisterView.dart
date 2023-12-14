@@ -9,15 +9,17 @@ class RegisterView extends StatelessWidget {
   TextEditingController passwordController = TextEditingController();
   TextEditingController repasswordController = TextEditingController();
 
-  SnackBar snackbar = SnackBar(content: Text("¡Vaya! Las contraseñas no son iguales...")
+  SnackBar snackbar = const SnackBar(content: Text("¡Vaya! Las contraseñas no son iguales...")
   );
+
+  RegisterView({super.key});
 
   void onClickCancelar() {
     Navigator.of(_context).popAndPushNamed("/loginview");
   }
 
   void onClickAceptar() async {
-    if (passwordController.text == repasswordController.text)
+    if (passwordController.text == repasswordController.text) {
       try {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: usernameController.text,
@@ -35,7 +37,7 @@ class RegisterView extends StatelessWidget {
       } catch (e) {
         print(e);
       }
-    else {
+    } else {
       ScaffoldMessenger.of(_context).showSnackBar(snackbar);
     }
   }
@@ -45,13 +47,13 @@ class RegisterView extends StatelessWidget {
     _context = context;
 
     Column columna = Column(children: [
-      Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-      Text("Bienvenido a Kyty Register", style: TextStyle(fontSize: 25)),
+      const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+      const Text("Bienvenido a Kyty Register", style: TextStyle(fontSize: 25)),
 
-      Padding(padding: EdgeInsets.symmetric(horizontal: 500, vertical: 14),
+      Padding(padding: const EdgeInsets.symmetric(horizontal: 500, vertical: 14),
         child: TextField(
           controller: usernameController,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
               border: OutlineInputBorder(),
               labelText: 'Escribe tu usuario',
               fillColor: Colors.white,
@@ -60,10 +62,10 @@ class RegisterView extends StatelessWidget {
         ),
       ),
 
-      Padding(padding: EdgeInsets.symmetric(horizontal: 500, vertical: 14),
+      Padding(padding: const EdgeInsets.symmetric(horizontal: 500, vertical: 14),
         child: TextFormField(
           controller: passwordController,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
               border: OutlineInputBorder(),
               labelText: 'Escribe tu password',
               fillColor: Colors.white,
@@ -73,10 +75,10 @@ class RegisterView extends StatelessWidget {
         ),
       ),
 
-      Padding(padding: EdgeInsets.symmetric(horizontal: 500, vertical: 14),
+      Padding(padding: const EdgeInsets.symmetric(horizontal: 500, vertical: 14),
         child: TextFormField(
           controller: repasswordController,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             border: OutlineInputBorder(),
             labelText: 'Repite tu password',
             fillColor: Colors.white,
@@ -88,8 +90,8 @@ class RegisterView extends StatelessWidget {
 
       Row(mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextButton(onPressed: onClickAceptar, style: TextButton.styleFrom(foregroundColor: Colors.black) ,child: Text("Aceptar"),),
-          TextButton(onPressed: onClickCancelar, style: TextButton.styleFrom(foregroundColor: Colors.black), child: Text("Cancelar"),)
+          TextButton(onPressed: onClickAceptar, style: TextButton.styleFrom(foregroundColor: Colors.black) ,child: const Text("Aceptar"),),
+          TextButton(onPressed: onClickCancelar, style: TextButton.styleFrom(foregroundColor: Colors.black), child: const Text("Cancelar"),)
         ],)
     ],);
 

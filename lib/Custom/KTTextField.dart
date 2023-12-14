@@ -8,7 +8,7 @@ class KTTextField extends StatelessWidget {
   double paddingHorizontal;
   double paddingVertical;
 
-  KTTextField ({
+  KTTextField ({super.key, 
     this.labelText = "",
     required this.tecController,
     this.isPassword = false,
@@ -23,7 +23,7 @@ class KTTextField extends StatelessWidget {
         controller: tecController,
         obscureText: isPassword,
         decoration: InputDecoration(
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
           filled: true,
           fillColor: Colors.white,
           labelText: labelText,

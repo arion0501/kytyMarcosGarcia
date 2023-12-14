@@ -11,6 +11,8 @@ import '../Custom/PostGridCellView.dart';
 import '../OnBoarding/LoginView.dart';
 
 class HomeView2 extends StatefulWidget {
+  const HomeView2({super.key});
+
   @override
   State<HomeView2> createState() => _HomeViewState2();
 }
@@ -37,7 +39,7 @@ class _HomeViewState2 extends State<HomeView2> {
   bool bIsList = false;
 
   void onBottonMenuPressed(int indice) {
-    print("--> HOME " + indice.toString() + "!" );
+    print("--> HOME $indice!" );
     setState(() {
       if(indice == 0){
         bIsList = true;
@@ -57,7 +59,7 @@ class _HomeViewState2 extends State<HomeView2> {
 
   void loadGeolocator() async {
     Position pos = await DataHolder().geolocAdmin.determinePosition();
-    print('--->>' + pos.toString());
+    print('--->>$pos');
     DataHolder().suscribeACambiosGPSUsuario();
   }
 
@@ -77,7 +79,7 @@ class _HomeViewState2 extends State<HomeView2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Kyty"),),
+      appBar: AppBar(title: const Text("Kyty"),),
       body: Center(
         child: celdasOLista(bIsList),
       ),
@@ -87,7 +89,7 @@ class _HomeViewState2 extends State<HomeView2> {
         onPressed: () {
           Navigator.of(context).pushNamed("/postcreateview");
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndDocked,
     );
@@ -116,7 +118,7 @@ class _HomeViewState2 extends State<HomeView2> {
   }
 
   Widget creadorDeSeparadorLista(BuildContext context, int index) {
-    return Column(
+    return const Column(
       children: [
         Divider(),
         //Image.network("https://media.tenor.com/zBc1XhcbTSoAAAAC/nyan-cat-rainbow.gif")
@@ -127,7 +129,7 @@ class _HomeViewState2 extends State<HomeView2> {
   Widget? celdasOLista(bool isList) {
     if (isList) {
       return ListView.separated(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         itemCount: posts.length,
         itemBuilder: creadorDeItemLista,
         separatorBuilder: creadorDeSeparadorLista,

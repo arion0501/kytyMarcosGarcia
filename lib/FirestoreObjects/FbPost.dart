@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -28,9 +27,9 @@ class FbPost{
 
   Map<String, dynamic> toFirestore() {
     return {
-      if (titulo != null) "Titulo": titulo,
-      if (cuerpo != null) "Cuerpo": cuerpo,
-      if (imagen != null) "Imagen": imagen
+      "Titulo": titulo,
+      "Cuerpo": cuerpo,
+      "Imagen": imagen
     };
   }
 }

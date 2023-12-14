@@ -4,9 +4,9 @@ class DrawerCustom extends StatelessWidget {
 
   Function (int indice)? onItemTap;
 
-  DrawerCustom({Key? key,
+  DrawerCustom({super.key,
     required this.onItemTap
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class DrawerCustom extends StatelessWidget {
           ),
           ListTile(
             title: const Text('2'),
-            leading: Icon(Icons.accessible_forward_rounded, color: Colors.red),
+            leading: const Icon(Icons.accessible_forward_rounded, color: Colors.red),
             onTap: () {
               onItemTap!(1);
             },

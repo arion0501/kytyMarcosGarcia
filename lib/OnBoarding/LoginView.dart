@@ -12,6 +12,8 @@ class LoginView extends StatelessWidget {
   TextEditingController tecUsername = TextEditingController();
   TextEditingController tecPassword = TextEditingController();
 
+  LoginView({super.key});
+
   void onClickRegistrar() {
     Navigator.of(_context).popAndPushNamed("/registerview");
   }
@@ -26,8 +28,8 @@ class LoginView extends StatelessWidget {
       FbUsuario? usuario = await DataHolder().loadFbUsuario();
 
       if (usuario != null) {
-        print("nombre login user: " + usuario.nombre);
-        print("edad login user: " + usuario.edad.toString());
+        print("nombre login user: ${usuario.nombre}");
+        print("edad login user: ${usuario.edad}");
         Navigator.of(_context).popAndPushNamed("/homeview");
       }
       else {
@@ -47,13 +49,13 @@ class LoginView extends StatelessWidget {
     _context = context;
 
     Column columna = Column(children: [
-      Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-      Text("Bienvenido a Kyty Login", style: TextStyle(fontSize: 25)),
+      const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+      const Text("Bienvenido a Kyty Login", style: TextStyle(fontSize: 25)),
 
-      Padding(padding: EdgeInsets.symmetric(horizontal: Checkbox.width, vertical: 14),
+      Padding(padding: const EdgeInsets.symmetric(horizontal: Checkbox.width, vertical: 14),
         child: Flexible(child: SizedBox(width: 500, child: TextField(
           controller: tecUsername,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
               border: OutlineInputBorder(),
               labelText: 'Escribe tu usuario',
               fillColor: Colors.white,
@@ -64,11 +66,11 @@ class LoginView extends StatelessWidget {
         ),
       ),
 
-      Padding(padding: EdgeInsets.symmetric(horizontal: Checkbox.width, vertical: 14),
+      Padding(padding: const EdgeInsets.symmetric(horizontal: Checkbox.width, vertical: 14),
         child: Flexible(child: SizedBox(width: 500, child: TextField(
           controller: tecPassword,
           obscureText: true,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
               border: OutlineInputBorder(),
               labelText: 'Escribe tu contraseña',
               fillColor: Colors.white,
@@ -81,8 +83,8 @@ class LoginView extends StatelessWidget {
 
       Row(mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextButton(onPressed: onClickAceptarLogin, style: TextButton.styleFrom(foregroundColor: Colors.black), child: Text("Aceptar"),),
-          TextButton(onPressed: onClickRegistrar, style: TextButton.styleFrom(foregroundColor: Colors.black), child: Text("Registrar"),)
+          TextButton(onPressed: onClickAceptarLogin, style: TextButton.styleFrom(foregroundColor: Colors.black), child: const Text("Aceptar"),),
+          TextButton(onPressed: onClickRegistrar, style: TextButton.styleFrom(foregroundColor: Colors.black), child: const Text("Registrar"),)
         ],)
     ],);
 

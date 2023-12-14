@@ -9,6 +9,8 @@ import '../FirestoreObjects/FbPost.dart';
 import '../SingleTone/DataHolder.dart';
 
 class PostCreateView extends StatefulWidget {
+  const PostCreateView({super.key});
+
 
   @override
   State<PostCreateView> createState() => _PostCreateViewState();
@@ -21,16 +23,14 @@ class _PostCreateViewState extends State<PostCreateView> {
   TextEditingController tecCuerpo = TextEditingController();
   TextEditingController tecImagen = TextEditingController();
 
-  ImagePicker _picker = ImagePicker();
+  final ImagePicker _picker = ImagePicker();
   File _imagePreview = File("");
 
   void subirPost() async {
     // Create a storage reference from our app
     final storageRef = FirebaseStorage.instance.ref();
 
-    String rutaEnNube = "posts/" +
-        FirebaseAuth.instance.currentUser!.uid + "/imgs/" +
-        DateTime.now().millisecondsSinceEpoch.toString() + ".jpg";
+    String rutaEnNube = "posts/${FirebaseAuth.instance.currentUser!.uid}/imgs/${DateTime.now().millisecondsSinceEpoch}.jpg";
 
     final rutaAFicheroEnNube = storageRef.child(rutaEnNube);
 
@@ -40,16 +40,16 @@ class _PostCreateViewState extends State<PostCreateView> {
     try {
       await rutaAFicheroEnNube.putFile(_imagePreview, metadata);
     } on FirebaseException catch (e) {
-      print("Error al subir la imagen" + e.toString());
+      print("Error al subir la imagen$e");
     }
     print("Imagen subida con éxito");
 
     String imgUrl = await rutaAFicheroEnNube.getDownloadURL();
-    print("URL de descarga: " + imgUrl);
+    print("URL de descarga: $imgUrl");
     //-- FIN DE SUBIDA DE IMAGEN
 
     //-- INICIO SUBIDA DE POST
-    FbPost postNuevo = new FbPost(
+    FbPost postNuevo = FbPost(
         titulo: tecTitulo.text,
         cuerpo: tecCuerpo.text,
         imagen: imgUrl);
@@ -96,13 +96,13 @@ class _PostCreateViewState extends State<PostCreateView> {
 
               Row(
                 children: [
-                  TextButton(onPressed: onGalleryClicked, child: Text("Galería")),
-                  TextButton(onPressed: onCameraClicked, child: Text("Cámara"))
+                  TextButton(onPressed: onGalleryClicked, child: const Text("Galería")),
+                  TextButton(onPressed: onCameraClicked, child: const Text("Cámara"))
                 ],
               ),
 
               TextButton(onPressed: subirPost,
-                  child: Text("Postear")
+                  child: const Text("Postear")
               )
             ],
           ),

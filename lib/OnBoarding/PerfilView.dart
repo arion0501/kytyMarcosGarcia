@@ -12,11 +12,13 @@ class PerfilView extends StatelessWidget {
 
   FirebaseFirestore db = FirebaseFirestore.instance;
 
+  PerfilView({super.key});
+
   void onClickAceptar() async {
 
-    FbUsuario usuario = new FbUsuario(nombre: tecNombre.text,
+    FbUsuario usuario = FbUsuario(nombre: tecNombre.text,
         edad: int.parse(tecEdad.text), altura: 0, colorPelo: '',
-        geoloc: GeoPoint(0, 0));
+        geoloc: const GeoPoint(0, 0));
 
     // UID del usuario que está logeado
     String uidUser = FirebaseAuth.instance.currentUser!.uid;
@@ -53,15 +55,15 @@ class PerfilView extends StatelessWidget {
         // mainAxisAlignment: MainAxisAlignment.center,
 
         children: [
-          Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-          Text("Bienvenido a tu perfil", style: TextStyle(fontSize: 25)),
+          const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+          const Text("Bienvenido a tu perfil", style: TextStyle(fontSize: 25)),
 
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: Checkbox.width, vertical: 14),
+            padding: const EdgeInsets.symmetric(horizontal: Checkbox.width, vertical: 14),
             child: Flexible(child: SizedBox(width: 400, child: TextField(
               // textAlign: TextAlign.center,
               controller: tecNombre,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Escribe tu nombre',
                   fillColor: Colors.white,
@@ -72,10 +74,10 @@ class PerfilView extends StatelessWidget {
             ),
           ),
 
-          Padding(padding: EdgeInsets.symmetric(horizontal: Checkbox.width, vertical: 14),
+          Padding(padding: const EdgeInsets.symmetric(horizontal: Checkbox.width, vertical: 14),
             child: Flexible(child: SizedBox(width: 400, child: TextField(
               controller: tecEdad,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Escribe tu edad',
                   fillColor: Colors.white,
@@ -88,8 +90,8 @@ class PerfilView extends StatelessWidget {
 
           Row(mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextButton(onPressed: onClickAceptar, child: Text("Aceptar"),),
-              TextButton(onPressed: onClickCancelar, child: Text("Cancelar"),)
+              TextButton(onPressed: onClickAceptar, child: const Text("Aceptar"),),
+              TextButton(onPressed: onClickCancelar, child: const Text("Cancelar"),)
             ],)
         ], // children
       ),

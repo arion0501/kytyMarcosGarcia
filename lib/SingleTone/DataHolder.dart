@@ -12,7 +12,7 @@ import '../FirestoreObjects/FbPost.dart';
 
 class DataHolder {
 
-  static final DataHolder _dataHolder = new DataHolder._internal();
+  static final DataHolder _dataHolder = DataHolder._internal();
   FirebaseFirestore db = FirebaseFirestore.instance;
   FirebaseAdmin fbAdmin = FirebaseAdmin();
   GeolocAdmin geolocAdmin = GeolocAdmin();
@@ -30,7 +30,6 @@ class DataHolder {
 
   void initDataHolder() {
     sPostTitle = "Titulo de Post";
-
   }
 
   void initPlatformAdmin(BuildContext context) {
@@ -78,17 +77,17 @@ class DataHolder {
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    String? fbpost_titulo = prefs.getString('titulo');
-    fbpost_titulo ??= "";
+    String? fbpostTitulo = prefs.getString('titulo');
+    fbpostTitulo ??= "";
 
-    String? fbpost_cuerpo = prefs.getString('cuerpo');
-    fbpost_cuerpo ??= "";
+    String? fbpostCuerpo = prefs.getString('cuerpo');
+    fbpostCuerpo ??= "";
 
-    String? fbpost_imagen = prefs.getString('imagen');
-    fbpost_imagen ??= "";
+    String? fbpostImagen = prefs.getString('imagen');
+    fbpostImagen ??= "";
 
-    selectedPost = FbPost(titulo: fbpost_titulo, cuerpo: fbpost_cuerpo,
-    imagen: fbpost_imagen);
+    selectedPost = FbPost(titulo: fbpostTitulo, cuerpo: fbpostCuerpo,
+    imagen: fbpostImagen);
 
     return selectedPost;
   }
@@ -98,7 +97,7 @@ class DataHolder {
   }
 
   void posicionDelMovilCambio(Position? position) {
-    usuario!.geoloc = GeoPoint(position!.latitude, position!.longitude);
+    usuario!.geoloc = GeoPoint(position!.latitude, position.longitude);
     fbAdmin.actualizarPerfilUsuario(usuario!);
   }
 }

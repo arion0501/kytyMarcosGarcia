@@ -3,6 +3,8 @@ import 'package:kyty/FirestoreObjects/FbPost.dart';
 import 'package:kyty/SingleTone/DataHolder.dart';
 
 class PostView extends StatefulWidget {
+  const PostView({super.key});
+
 
   @override
   State<PostView> createState() => _PostViewState();
@@ -34,7 +36,7 @@ class _PostViewState extends State<PostView> {
           Text(_datosPost.titulo),
           Text(_datosPost.cuerpo),
           Image.network(_datosPost.imagen, width: 70, height: 70),
-          TextButton(onPressed: null, child: Text("Like"))
+          const TextButton(onPressed: null, child: Text("Like"))
         ],
       ),
     );

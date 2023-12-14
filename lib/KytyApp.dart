@@ -12,6 +12,8 @@ import 'OnBoarding/PhoneLoginView.dart';
 import 'OnBoarding/RegisterView.dart';
 
 class KytyApp extends StatelessWidget{
+  const KytyApp({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -22,28 +24,29 @@ class KytyApp extends StatelessWidget{
         routes: {
           '/loginview':(context) => LoginView(),
           '/registerview':(context) => RegisterView(),
-          '/homeview':(context) => HomeView(),
-          '/splashview':(context) => SplashView(),
+          '/homeview':(context) => const HomeView(),
+          '/splashview':(context) => const SplashView(),
           '/perfilview':(context) => PerfilView(),
-          '/postview':(context) => PostView(),
-          '/postcreateview':(context) => PostCreateView(),
+          '/postview':(context) => const PostView(),
+          '/postcreateview':(context) => const PostCreateView(),
         },
         initialRoute: '/splashview',
       );
     }
-    else
+    else {
       materialApp = MaterialApp(title: "KyTy Miau!",
         routes: {
-          '/loginview':(context) => PhoneLoginView(),
+          '/loginview':(context) => const PhoneLoginView(),
           '/registerview':(context) => RegisterView(),
-          '/homeview':(context) => HomeView2(),
-          '/splashview':(context) => SplashView(),
+          '/homeview':(context) => const HomeView2(),
+          '/splashview':(context) => const SplashView(),
           '/perfilview':(context) => PerfilView(),
-          '/postview':(context) => PostView(),
-          '/postcreateview':(context) => PostCreateView(),
+          '/postview':(context) => const PostView(),
+          '/postcreateview':(context) => const PostCreateView(),
         },
         initialRoute: '/splashview',
       );
+    }
     return materialApp;
   }
 }

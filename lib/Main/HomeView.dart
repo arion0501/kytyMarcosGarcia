@@ -11,6 +11,8 @@ import '../Custom/PostGridCellView.dart';
 import '../OnBoarding/LoginView.dart';
 
 class HomeView extends StatefulWidget {
+  const HomeView({super.key});
+
   @override
   State<HomeView> createState() => _HomeViewState();
 }
@@ -34,11 +36,11 @@ class _HomeViewState extends State<HomeView> {
 
   FirebaseFirestore db = FirebaseFirestore.instance;
   final List<FbPost> posts = [];
-  final Map<String, FbPost> mapPosts = Map();
+  final Map<String, FbPost> mapPosts = {};
   bool bIsList = false;
 
   void onBottonMenuPressed(int indice) {
-    print("--> HOME " + indice.toString() + "!" );
+    print("--> HOME $indice!" );
     setState(() {
       if(indice == 0){
         bIsList = true;
@@ -59,7 +61,7 @@ class _HomeViewState extends State<HomeView> {
   determinarTempLocal() async {
     Position position = await DataHolder().geolocAdmin.determinePosition();
     double valor = await DataHolder().httpAdmin.pedirTemperaturasEn(position.latitude, position.longitude);
-    print('La temperatura en el sitio donde estás es: ${valor}');
+    print('La temperatura en el sitio donde estás es: $valor');
   }
 
   void descargarPosts() async {
@@ -98,7 +100,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Kyty"),
+      appBar: AppBar(title: const Text("Kyty"),
         /*actions: [
             IconButton(
               icon: const Icon(Icons.refresh),
@@ -115,7 +117,7 @@ class _HomeViewState extends State<HomeView> {
         onPressed: () {
           Navigator.of(context).pushNamed("/postcreateview");
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndDocked,
     );
@@ -144,7 +146,7 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget creadorDeSeparadorLista(BuildContext context, int index) {
-    return Column(
+    return const Column(
       children: [
         Divider(),
         //Image.network("https://media.tenor.com/zBc1XhcbTSoAAAAC/nyan-cat-rainbow.gif")
@@ -155,7 +157,7 @@ class _HomeViewState extends State<HomeView> {
   Widget? celdasOLista(bool isList) {
     if (isList) {
       return ListView.separated(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         itemCount: posts.length,
         itemBuilder: creadorDeItemLista,
         separatorBuilder: creadorDeSeparadorLista,

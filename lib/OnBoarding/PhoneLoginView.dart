@@ -5,6 +5,8 @@ import 'package:kyty/SingleTone/DataHolder.dart';
 import '../FirestoreObjects/FbUsuario.dart';
 
 class PhoneLoginView extends StatefulWidget {
+  const PhoneLoginView({super.key});
+
   @override
   State<PhoneLoginView> createState() => _PhoneLoginViewState();
 }
@@ -39,8 +41,8 @@ class _PhoneLoginViewState extends State<PhoneLoginView> {
     await FirebaseAuth.instance.signInWithCredential(credential);
     FbUsuario? usuario = await DataHolder().loadFbUsuario();
     if(usuario != null) {
-      print("nombre login user: " + usuario.nombre);
-      print("edad login user: " + usuario.edad.toString());
+      print("nombre login user: ${usuario.nombre}");
+      print("edad login user: ${usuario.edad}");
       Navigator.of(context).popAndPushNamed("/homeview");
     }
     else{
@@ -53,8 +55,8 @@ class _PhoneLoginViewState extends State<PhoneLoginView> {
     FbUsuario? usuario = await DataHolder().loadFbUsuario();
 
     if(usuario != null) {
-      print("nombre login user: " + usuario.nombre);
-      print("edad login user: " + usuario.edad.toString());
+      print("nombre login user: ${usuario.nombre}");
+      print("edad login user: ${usuario.edad}");
       Navigator.of(context).popAndPushNamed("/homeview");
     }
     else{
@@ -85,11 +87,11 @@ class _PhoneLoginViewState extends State<PhoneLoginView> {
       body: Column(
         children: [
           KTTextField(labelText: 'Número de teléfono', tecController: tecPhone),
-          TextButton(onPressed: enviarTelefonoPressed, child: Text('Enviar')),
+          TextButton(onPressed: enviarTelefonoPressed, child: const Text('Enviar')),
           if(blMostrarVerification)
             KTTextField(labelText: 'Número de verificación', tecController: tecVerify),
           if(blMostrarVerification)
-            TextButton(onPressed: enviarVerifyPressed, child: Text('Enviar')),
+            TextButton(onPressed: enviarVerifyPressed, child: const Text('Enviar')),
         ],
       ),
     );

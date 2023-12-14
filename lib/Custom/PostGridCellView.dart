@@ -15,12 +15,12 @@ class PostGridCellView extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4,
           mainAxisSpacing: 8,
           crossAxisSpacing: 8,
         ),
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         itemCount: post.length,
         itemBuilder: (context, index) {
 
@@ -30,7 +30,7 @@ class PostGridCellView extends StatelessWidget{
               child: Center(
                 child: Text(
                   post[index].titulo,
-                  style: TextStyle(fontSize: 20, color: Colors.orange),
+                  style: const TextStyle(fontSize: 20, color: Colors.orange),
                 ),
               ),
             ),

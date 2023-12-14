@@ -8,7 +8,7 @@ class PostCellView extends StatelessWidget{
   final int iPosicion;
   final Function(int indice)? onItemListClickedFun;
 
-  const PostCellView ({
+  const PostCellView ({super.key, 
     required this.sText,
     required this.iColorCode,
     required this.dFontSize,
